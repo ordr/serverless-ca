@@ -73,10 +73,10 @@ concatenate the two (or neither).
 ```bash
 openssl ecparam -genkey -name secp256r1 -out server.key
 openssl req -new -SHA256 -nodes -key server.key -subj "/C=GB/ST=England/L=London/O=ORDR/CN=privatestuff.ordr.menu" -out server.csr
-aws lambda invoke --function-name my-function --payload '{ "csr": "$(base64 -w0 server.csr)" }' response.json
+aws lambda invoke --function-name my-function --payload "{ \"csr\": \"$(base64 -w0 server.csr)\" }" response.json
 
 mv server.key /etc/nginx/ssl/server.key
-jq -r .certificate response.json > /etc/nginx/ssl/server.crt
+jq -r .certificate response.json | base64 -d > /etc/nginx/ssl/server.crt
 ```
 
 ## CA expiration
