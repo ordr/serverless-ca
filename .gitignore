@@ -1,0 +1,5 @@
+.terraform/
+.terraform.lock.hcl
+function.zip
+main
+terraform.tfstate*
